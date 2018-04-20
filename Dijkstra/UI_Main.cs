@@ -8,7 +8,7 @@ namespace Dijkstra
         public static void Main(string[] args)
         {
             Graph g = new Graph();
-             /*hola david*/
+             /*lo logre*/
             g.add_vertex('A', new Dictionary<char, int>() { { 'B', 7 }, { 'C', 8 } });
             g.add_vertex('B', new Dictionary<char, int>() { { 'A', 7 }, { 'F', 2 } });
             g.add_vertex('C', new Dictionary<char, int>() { { 'A', 8 }, { 'F', 6 }, { 'G', 4 } });
