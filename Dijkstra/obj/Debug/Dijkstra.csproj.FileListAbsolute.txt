@@ -1,0 +1,14 @@
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Dijkstra\bin\Debug\Dijkstra.exe.config
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Dijkstra\bin\Debug\Dijkstra.exe
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Dijkstra\bin\Debug\Dijkstra.pdb
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Dijkstra\obj\Debug\Dijkstra.csprojResolveAssemblyReference.cache
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Dijkstra\obj\Debug\Dijkstra.csproj.CoreCompileInputs.cache
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Dijkstra\obj\Debug\Dijkstra.exe
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Dijkstra\obj\Debug\Dijkstra.pdb
+C:\Users\josep\Documents\GitHub\Dijsktra\Dijkstra\Dijkstra\bin\Debug\Dijkstra.exe.config
+C:\Users\josep\Documents\GitHub\Dijsktra\Dijkstra\Dijkstra\bin\Debug\Dijkstra.exe
+C:\Users\josep\Documents\GitHub\Dijsktra\Dijkstra\Dijkstra\bin\Debug\Dijkstra.pdb
+C:\Users\josep\Documents\GitHub\Dijsktra\Dijkstra\Dijkstra\obj\Debug\Dijkstra.csprojResolveAssemblyReference.cache
+C:\Users\josep\Documents\GitHub\Dijsktra\Dijkstra\Dijkstra\obj\Debug\Dijkstra.csproj.CoreCompileInputs.cache
+C:\Users\josep\Documents\GitHub\Dijsktra\Dijkstra\Dijkstra\obj\Debug\Dijkstra.exe
+C:\Users\josep\Documents\GitHub\Dijsktra\Dijkstra\Dijkstra\obj\Debug\Dijkstra.pdb

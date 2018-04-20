@@ -1,0 +1,12 @@
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\bin\Debug\Forms_Map.exe.config
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\bin\Debug\Forms_Map.exe
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\bin\Debug\Forms_Map.pdb
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\bin\Debug\GMap.NET.Core.dll
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\obj\Debug\Forms_Map.csprojResolveAssemblyReference.cache
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\obj\Debug\Forms_Map.Map.resources
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\obj\Debug\Forms_Map.Properties.Resources.resources
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\obj\Debug\Forms_Map.csproj.GenerateResource.Cache
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\obj\Debug\Forms_Map.csproj.CoreCompileInputs.cache
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\obj\Debug\Forms_Map.exe
+C:\Users\josep\Downloads\Dijkstra\Dijkstra\Forms_Map\obj\Debug\Forms_Map.pdb
