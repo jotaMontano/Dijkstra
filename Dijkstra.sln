@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dijkstra", "Dijkstra\Dijkstra.csproj", "{EC15EBBE-6365-4A7E-8F59-0690E267745D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_Dijkstra", "Dijkstra\Project_Dijkstra.csproj", "{EC15EBBE-6365-4A7E-8F59-0690E267745D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms_Map", "Forms_Map\Forms_Map.csproj", "{46BF0BF0-A05C-40A6-B999-774F77435344}"
 EndProject

@@ -1,0 +1,6 @@
+C:\Users\josep\Documents\GitHub\Dijkstra\Dijkstra\bin\Debug\Dijkstra.exe.config
+C:\Users\josep\Documents\GitHub\Dijkstra\Dijkstra\bin\Debug\Dijkstra.exe
+C:\Users\josep\Documents\GitHub\Dijkstra\Dijkstra\bin\Debug\Dijkstra.pdb
+C:\Users\josep\Documents\GitHub\Dijkstra\Dijkstra\obj\Debug\Project_Dijkstra.csproj.CoreCompileInputs.cache
+C:\Users\josep\Documents\GitHub\Dijkstra\Dijkstra\obj\Debug\Dijkstra.exe
+C:\Users\josep\Documents\GitHub\Dijkstra\Dijkstra\obj\Debug\Dijkstra.pdb
