@@ -59,14 +59,14 @@
             this.gMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMap.ShowTileGridLines = false;
-            this.gMap.Size = new System.Drawing.Size(1305, 669);
+            this.gMap.Size = new System.Drawing.Size(1280, 600);
             this.gMap.TabIndex = 0;
             this.gMap.Zoom = 0D;
             // 
             // LblOrigin
             // 
             this.LblOrigin.AutoSize = true;
-            this.LblOrigin.Location = new System.Drawing.Point(48, 699);
+            this.LblOrigin.Location = new System.Drawing.Point(46, 636);
             this.LblOrigin.Name = "LblOrigin";
             this.LblOrigin.Size = new System.Drawing.Size(38, 13);
             this.LblOrigin.TabIndex = 1;
@@ -76,7 +76,7 @@
             // 
             this.CbOrigin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbOrigin.FormattingEnabled = true;
-            this.CbOrigin.Location = new System.Drawing.Point(92, 696);
+            this.CbOrigin.Location = new System.Drawing.Point(90, 633);
             this.CbOrigin.Name = "CbOrigin";
             this.CbOrigin.Size = new System.Drawing.Size(121, 21);
             this.CbOrigin.TabIndex = 2;
@@ -85,7 +85,7 @@
             // LblDestiny
             // 
             this.LblDestiny.AutoSize = true;
-            this.LblDestiny.Location = new System.Drawing.Point(292, 699);
+            this.LblDestiny.Location = new System.Drawing.Point(290, 636);
             this.LblDestiny.Name = "LblDestiny";
             this.LblDestiny.Size = new System.Drawing.Size(43, 13);
             this.LblDestiny.TabIndex = 3;
@@ -95,7 +95,7 @@
             // 
             this.CbDestiny.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbDestiny.FormattingEnabled = true;
-            this.CbDestiny.Location = new System.Drawing.Point(341, 696);
+            this.CbDestiny.Location = new System.Drawing.Point(339, 633);
             this.CbDestiny.Name = "CbDestiny";
             this.CbDestiny.Size = new System.Drawing.Size(121, 21);
             this.CbDestiny.TabIndex = 4;
@@ -103,7 +103,7 @@
             // 
             // BtnGo
             // 
-            this.BtnGo.Location = new System.Drawing.Point(624, 694);
+            this.BtnGo.Location = new System.Drawing.Point(622, 631);
             this.BtnGo.Name = "BtnGo";
             this.BtnGo.Size = new System.Drawing.Size(75, 23);
             this.BtnGo.TabIndex = 5;
@@ -113,7 +113,7 @@
             // 
             // BtnBack
             // 
-            this.BtnBack.Location = new System.Drawing.Point(529, 694);
+            this.BtnBack.Location = new System.Drawing.Point(527, 631);
             this.BtnBack.Name = "BtnBack";
             this.BtnBack.Size = new System.Drawing.Size(75, 23);
             this.BtnBack.TabIndex = 6;
@@ -125,7 +125,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.ClientSize = new System.Drawing.Size(1264, 665);
             this.Controls.Add(this.BtnBack);
             this.Controls.Add(this.BtnGo);
             this.Controls.Add(this.CbDestiny);

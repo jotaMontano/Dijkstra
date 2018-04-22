@@ -12,16 +12,22 @@ namespace Forms_Map
     public partial class Map : Form
     {
         private const MarkerTooltipMode always = MarkerTooltipMode.Always;
-        GMarkerGoogle _tempMarker;
-        GMapOverlay markerOverlay;
+        public GMarkerGoogle _tempMarker;
+        public GMapOverlay markerOverlay;
+        public GMapRoute PuntosRuta;
+        public GMapOverlay Ruta = new GMapOverlay("Ruta");
         public PointLatLng _locationCoordinates;
+        bool trazarRuta = false;
+        int contadorIndicadoresRuta = 0;
         double LatInitial = 9.916915;
         double LngInitial = -84.096066;
 
+        //prueba
+        public PointLatLng inicio;
+        public PointLatLng Final;
         // nodo y grafo mover a gestor
         public Graph graph = new Graph();
         public List<Node> nodes = new List<Node>();
-        List<Node> shortestPathForNodeE = new List<Node>();
         public Map()
         {
             InitializeComponent();
@@ -50,20 +56,21 @@ namespace Forms_Map
             nodes.Add(nodeD);
 
             nodeA.addDestination(nodeB, 20);
-            nodeA.addDestination(nodeD, 5);
-            nodeA.addDestination(nodeC, 12);
+            nodeA.addDestination(nodeD, 3);
+            nodeA.addDestination(nodeC, 7);
 
             nodeB.addDestination(nodeA, 20);
-            nodeB.addDestination(nodeC, 15);
+            nodeB.addDestination(nodeC, 13);
             nodeB.addDestination(nodeD, 12);
 
-            nodeC.addDestination(nodeA, 12);
-            nodeC.addDestination(nodeB, 15);
-            nodeC.addDestination(nodeD, 10);
+            nodeC.addDestination(nodeA, 18);
+            nodeC.addDestination(nodeB, 13);
+            nodeC.addDestination(nodeD, 7);
 
-            nodeD.addDestination(nodeA, 5);
+            nodeD.addDestination(nodeA, 3);
             nodeD.addDestination(nodeB, 12);
-            nodeD.addDestination(nodeC, 10);
+            nodeD.addDestination(nodeC, 7);
+
 
 
 
@@ -73,14 +80,6 @@ namespace Forms_Map
             graph.addNode(nodeD);
             //marcador mapa
 
-
-
-            /*   marker = new GMarkerGoogle(new PointLatLng(nodeC.getLatInitial(), nodeC.getLngInitial()), GMarkerGoogleType.red);
-               markerOverlay.Markers.Add(marker);
-               marker.ToolTipMode = MarkerTooltipMode.Always;
-               marker.ToolTipText = string.Format("Ubicacion: \n Latitud: {0} \n Longitud: {1}", nodeC.getName(), nodeC.getLatInitial(), nodeC.getLngInitial());
-               gMap.Overlays.Add(markerOverlay);
-               */
             foreach (var item in graph.getNodes())
             {
                 gMapShowLocations(item);
@@ -177,6 +176,9 @@ namespace Forms_Map
             HideComponents();
             CbDestiny_clear();
             CbDestiny_Charge(nodes);
+            trazarRuta = false;
+            Ruta.Clear();
+
         }
         public void CbDestiny_clear()
         {
@@ -186,6 +188,38 @@ namespace Forms_Map
         private void BtnGo_Click(object sender, EventArgs e)
         {
             BtnGo.Hide();
+            trazarRuta = true;
+            List<PointLatLng> Puntos = new List<PointLatLng>();
+            var index = CbOrigin.SelectedIndex;
+            Node Nodesource = null;
+            foreach (var item in nodes)
+            {
+                if(item.getName() == CbDestiny.Text)
+                {
+                    Nodesource = item;
+                }
+            }
+            var mts = 0;
+            graph = Dijkstra.calculateShortestPathFromSource(graph, Nodesource);
+            var last = false;
+            foreach (Node node in graph.getNodes())
+            {
+          
+               foreach (Node destino in node.getShortestPath())
+               {
+                    mts = mts + node.getDistance();
+                    Puntos.Add(new PointLatLng(node.getLatInitial(), node.getLngInitial()));
+
+                }
+             
+            }
+            PuntosRuta = new GMapRoute(Puntos, "Ruta");
+            Ruta.Routes.Add(PuntosRuta);
+
+            gMap.Overlays.Add(Ruta);
+            gMap.Zoom = gMap.Zoom + 1;
+            gMap.Zoom = gMap.Zoom - 1;
         }
+        
     }
 }
