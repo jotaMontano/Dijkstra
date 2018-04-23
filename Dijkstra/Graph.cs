@@ -8,22 +8,71 @@ namespace Project_Dijkstra
 {
     public class Graph
     {
-        private HashSet<Node> nodes = new HashSet<Node>();
-        
-        public void addNode(Node node)
+        Dictionary<Node, Dictionary<Node, int>> vertices = new Dictionary<Node, Dictionary<Node, int>>();
+        public void add_vertex(Node node, Dictionary<Node, int> edges)
         {
-            nodes.Add(node);
+            vertices[node] = edges;
         }
+  
 
-        public HashSet<Node> getNodes()
+        public List<Node> shortest_path(Node start, Node finish)
         {
-            return nodes;
-        }
+            var previous = new Dictionary<Node, Node>();
+            var distances = new Dictionary<Node, int>();
+            var nodes = new List<Node>();
 
-        public void setNodes(HashSet<Node> nodes)
-        {
-            this.nodes = nodes;
-        }
+            List<Node> path = null;
 
+            foreach (var vertex in vertices)
+            {
+                if (vertex.Key.getName() == start.getName())
+                {
+                    distances[vertex.Key] = 0;
+                }
+                else
+                {
+                    distances[vertex.Key] = int.MaxValue;
+                }
+
+                nodes.Add(vertex.Key);
+            }
+
+            while (nodes.Count != 0)
+            {
+                nodes.Sort((x, y) => distances[x] - distances[y]);
+
+                var smallest = nodes[0];
+                nodes.Remove(smallest);
+
+                if (smallest.getName() == finish.getName())
+                {
+                    path = new List<Node>();
+                    while (previous.ContainsKey(smallest))
+                    {
+                        path.Add(smallest);
+                        smallest = previous[smallest];
+                    }
+
+                    break;
+                }
+
+                if (distances[smallest] == int.MaxValue)
+                {
+                    break;
+                }
+
+                foreach (var neighbor in vertices[smallest])
+                {
+                    var alt = distances[smallest] + neighbor.Value;
+                    if (alt < distances[neighbor.Key])
+                    {
+                        distances[neighbor.Key] = alt;
+                        previous[neighbor.Key] = smallest;
+                    }
+                }
+            }
+
+            return path;
+        }
     }
 }

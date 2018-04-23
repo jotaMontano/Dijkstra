@@ -91,5 +91,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dijkstra\Project_Dijkstra.csproj">
+      <Project>{EC15EBBE-6365-4A7E-8F59-0690E267745D}</Project>
+      <Name>Project_Dijkstra</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

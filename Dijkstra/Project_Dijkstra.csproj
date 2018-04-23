@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dijkstra.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Program.cs" />
@@ -55,11 +54,11 @@
     <None Include="bin\Debug\Dijkstra.exe.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\Dijkstra.exe" />
-    <Content Include="bin\Debug\Dijkstra.pdb" />
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\Release\" />
+    <Content Include="bin\Debug\Dijkstra.exe" />
+    <Content Include="bin\Debug\Dijkstra.pdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

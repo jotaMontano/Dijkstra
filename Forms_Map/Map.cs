@@ -17,15 +17,12 @@ namespace Forms_Map
         public GMapRoute PuntosRuta;
         public GMapOverlay Ruta = new GMapOverlay("Ruta");
         public PointLatLng _locationCoordinates;
-        bool trazarRuta = false;
-        int contadorIndicadoresRuta = 0;
         double LatInitial = 9.916915;
         double LngInitial = -84.096066;
 
         //prueba
         public PointLatLng inicio;
         public PointLatLng Final;
-        // nodo y grafo mover a gestor
         public Graph graph = new Graph();
         public List<Node> nodes = new List<Node>();
         public Map()
@@ -47,40 +44,28 @@ namespace Forms_Map
 
             //nodos de gestor, 
             Node nodeA = new Node("Mi casa", 9.939562, -84.023247);
-            Node nodeB = new Node("San Jose", 9.916915, -84.096066);
+            Node nodeB = new Node("Cenfotec", 9.932410, -84.031022);
             Node nodeC = new Node("Mall San Pedro", 9.933496, -84.056588);
-            Node nodeD = new Node("Cenfotec", 9.932410, -84.031022);
+            Node nodeD = new Node("San Jose", 9.916915, -84.096066);
+            Node NodeE = new Node("Aeropuerto Internacional Juan Santamaría", 9.998766, -84.204073);
+       
+          
             nodes.Add(nodeA);
             nodes.Add(nodeB);
             nodes.Add(nodeC);
             nodes.Add(nodeD);
-
-            nodeA.addDestination(nodeB, 20);
-            nodeA.addDestination(nodeD, 3);
-            nodeA.addDestination(nodeC, 7);
-
-            nodeB.addDestination(nodeA, 20);
-            nodeB.addDestination(nodeC, 13);
-            nodeB.addDestination(nodeD, 12);
-
-            nodeC.addDestination(nodeA, 18);
-            nodeC.addDestination(nodeB, 13);
-            nodeC.addDestination(nodeD, 7);
-
-            nodeD.addDestination(nodeA, 3);
-            nodeD.addDestination(nodeB, 12);
-            nodeD.addDestination(nodeC, 7);
+            nodes.Add(NodeE);
 
 
+            graph.add_vertex(nodeA, new Dictionary<Node, int>() { { nodeB, 3 } });
+            graph.add_vertex(nodeB, new Dictionary<Node, int>() { { nodeA, 3 }, { nodeC, 5 } });
+            graph.add_vertex(nodeC, new Dictionary<Node, int>() { { nodeB, 5 }, { nodeD, 4 } });
+            graph.add_vertex(nodeD, new Dictionary<Node, int>() { { nodeC, 4 }});
+            graph.add_vertex(NodeE, new Dictionary<Node, int>() { { nodeA, 1}, { nodeD, 1 } });
 
-
-            graph.addNode(nodeA);
-            graph.addNode(nodeB);
-            graph.addNode(nodeC);
-            graph.addNode(nodeD);
             //marcador mapa
 
-            foreach (var item in graph.getNodes())
+            foreach (var item in nodes)
             {
                 gMapShowLocations(item);
             }
@@ -176,7 +161,6 @@ namespace Forms_Map
             HideComponents();
             CbDestiny_clear();
             CbDestiny_Charge(nodes);
-            trazarRuta = false;
             Ruta.Clear();
 
         }
@@ -188,31 +172,28 @@ namespace Forms_Map
         private void BtnGo_Click(object sender, EventArgs e)
         {
             BtnGo.Hide();
-            trazarRuta = true;
+         
             List<PointLatLng> Puntos = new List<PointLatLng>();
-            var index = CbOrigin.SelectedIndex;
             Node Nodesource = null;
+            Node NodeDestination = null; 
             foreach (var item in nodes)
             {
-                if(item.getName() == CbDestiny.Text)
+                if(item.getName() == CbOrigin.Text)
                 {
                     Nodesource = item;
                 }
+                if (item.getName() == CbDestiny.Text)
+                {
+                    NodeDestination = item;
+                }
             }
             var mts = 0;
-            graph = Dijkstra.calculateShortestPathFromSource(graph, Nodesource);
-            var last = false;
-            foreach (Node node in graph.getNodes())
-            {
-          
-               foreach (Node destino in node.getShortestPath())
-               {
-                    mts = mts + node.getDistance();
-                    Puntos.Add(new PointLatLng(node.getLatInitial(), node.getLngInitial()));
 
-                }
-             
+            foreach (var node in graph.shortest_path(Nodesource, NodeDestination))
+            {
+                Puntos.Add(new PointLatLng(node.getLatInitial(), node.getLngInitial()));
             }
+            Puntos.Add(new PointLatLng(Nodesource.getLatInitial(), Nodesource.getLngInitial()));
             PuntosRuta = new GMapRoute(Puntos, "Ruta");
             Ruta.Routes.Add(PuntosRuta);
 
