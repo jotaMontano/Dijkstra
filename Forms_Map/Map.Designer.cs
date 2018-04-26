@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gMap = new GMap.NET.WindowsForms.GMapControl();
             this.LblOrigin = new System.Windows.Forms.Label();
             this.CbOrigin = new System.Windows.Forms.ComboBox();
@@ -35,6 +36,10 @@
             this.CbDestiny = new System.Windows.Forms.ComboBox();
             this.BtnGo = new System.Windows.Forms.Button();
             this.BtnBack = new System.Windows.Forms.Button();
+            this.trackZoom = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
             this.SuspendLayout();
             // 
             // gMap
@@ -85,7 +90,7 @@
             // LblDestiny
             // 
             this.LblDestiny.AutoSize = true;
-            this.LblDestiny.Location = new System.Drawing.Point(290, 636);
+            this.LblDestiny.Location = new System.Drawing.Point(218, 636);
             this.LblDestiny.Name = "LblDestiny";
             this.LblDestiny.Size = new System.Drawing.Size(43, 13);
             this.LblDestiny.TabIndex = 3;
@@ -95,7 +100,7 @@
             // 
             this.CbDestiny.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbDestiny.FormattingEnabled = true;
-            this.CbDestiny.Location = new System.Drawing.Point(339, 633);
+            this.CbDestiny.Location = new System.Drawing.Point(267, 633);
             this.CbDestiny.Name = "CbDestiny";
             this.CbDestiny.Size = new System.Drawing.Size(121, 21);
             this.CbDestiny.TabIndex = 4;
@@ -103,29 +108,56 @@
             // 
             // BtnGo
             // 
-            this.BtnGo.Location = new System.Drawing.Point(622, 631);
+            this.BtnGo.Location = new System.Drawing.Point(749, 626);
             this.BtnGo.Name = "BtnGo";
             this.BtnGo.Size = new System.Drawing.Size(75, 23);
             this.BtnGo.TabIndex = 5;
+            this.BtnGo.Tag = "";
             this.BtnGo.Text = "Ir";
             this.BtnGo.UseVisualStyleBackColor = true;
             this.BtnGo.Click += new System.EventHandler(this.BtnGo_Click);
             // 
             // BtnBack
             // 
-            this.BtnBack.Location = new System.Drawing.Point(527, 631);
+            this.BtnBack.Location = new System.Drawing.Point(654, 626);
             this.BtnBack.Name = "BtnBack";
             this.BtnBack.Size = new System.Drawing.Size(75, 23);
             this.BtnBack.TabIndex = 6;
+            this.BtnBack.Tag = "";
             this.BtnBack.Text = "Atras";
             this.BtnBack.UseVisualStyleBackColor = true;
             this.BtnBack.Click += new System.EventHandler(this.BtnBack_Click);
+            // 
+            // trackZoom
+            // 
+            this.trackZoom.Location = new System.Drawing.Point(443, 626);
+            this.trackZoom.Maximum = 25;
+            this.trackZoom.Name = "trackZoom";
+            this.trackZoom.Size = new System.Drawing.Size(205, 45);
+            this.trackZoom.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(403, 636);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Zoom";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 10;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Map
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 665);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.trackZoom);
             this.Controls.Add(this.BtnBack);
             this.Controls.Add(this.BtnGo);
             this.Controls.Add(this.CbDestiny);
@@ -136,6 +168,7 @@
             this.Name = "Map";
             this.Text = "Map";
             this.Load += new System.EventHandler(this.Map_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,6 +183,9 @@
         private System.Windows.Forms.ComboBox CbDestiny;
         private System.Windows.Forms.Button BtnGo;
         private System.Windows.Forms.Button BtnBack;
+        private System.Windows.Forms.TrackBar trackZoom;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

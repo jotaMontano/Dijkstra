@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Dijkstra;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
@@ -19,12 +21,14 @@ namespace Forms_Map
         public PointLatLng _locationCoordinates;
         double LatInitial = 9.916915;
         double LngInitial = -84.096066;
+        public GMapOverlay capaRutas = new GMapOverlay("Capa de la ruta");
 
-        //prueba
+
         public PointLatLng inicio;
         public PointLatLng Final;
-        public Graph graph = new Graph();
-        public List<Node> nodes = new List<Node>();
+        //public Graph graph;
+        public List<Node> nodes;
+        static Manager manager = Manager.Instance;
         public Map()
         {
             InitializeComponent();
@@ -42,34 +46,13 @@ namespace Forms_Map
             gMap.Zoom = 14;
             gMap.AutoScroll = true;
 
-            //nodos de gestor, 
-            Node nodeA = new Node("Mi casa", 9.939562, -84.023247);
-            Node nodeB = new Node("Cenfotec", 9.932410, -84.031022);
-            Node nodeC = new Node("Mall San Pedro", 9.933496, -84.056588);
-            Node nodeD = new Node("San Jose", 9.916915, -84.096066);
-            Node NodeE = new Node("Aeropuerto Internacional Juan Santamaría", 9.998766, -84.204073);
-       
-          
-            nodes.Add(nodeA);
-            nodes.Add(nodeB);
-            nodes.Add(nodeC);
-            nodes.Add(nodeD);
-            nodes.Add(NodeE);
-
-
-            graph.add_vertex(nodeA, new Dictionary<Node, int>() { { nodeB, 3 } });
-            graph.add_vertex(nodeB, new Dictionary<Node, int>() { { nodeA, 3 }, { nodeC, 5 } });
-            graph.add_vertex(nodeC, new Dictionary<Node, int>() { { nodeB, 5 }, { nodeD, 4 } });
-            graph.add_vertex(nodeD, new Dictionary<Node, int>() { { nodeC, 4 }});
-            graph.add_vertex(NodeE, new Dictionary<Node, int>() { { nodeA, 1}, { nodeD, 1 } });
-
-            //marcador mapa
+            nodes = manager.loadLocations();
 
             foreach (var item in nodes)
             {
                 gMapShowLocations(item);
             }
-           
+
 
             HideComponents();
             CbOrigin_Charge(nodes);
@@ -82,8 +65,8 @@ namespace Forms_Map
             _locationCoordinates = new PointLatLng(node.getLatInitial(), node.getLngInitial());
             _tempMarker = new GMarkerGoogle(_locationCoordinates, GMarkerGoogleType.red);
             _tempMarker.ToolTipMode = MarkerTooltipMode.Always;
-            _tempMarker.ToolTipText = string.Format("Ubicacion:{0} \n Latitud: {1} \n Longitud: {2}", node.getName(), node.getLatInitial(), node.getLngInitial());
-          
+            _tempMarker.ToolTipText = string.Format("{0}", node.getName());
+
             markerOverlay.Markers.Add(_tempMarker);
             gMap.Position = _tempMarker.Position;
             gMap.Overlays.Add(markerOverlay);
@@ -162,6 +145,7 @@ namespace Forms_Map
             CbDestiny_clear();
             CbDestiny_Charge(nodes);
             Ruta.Clear();
+            capaRutas.Clear();
 
         }
         public void CbDestiny_clear()
@@ -172,13 +156,13 @@ namespace Forms_Map
         private void BtnGo_Click(object sender, EventArgs e)
         {
             BtnGo.Hide();
-         
+
             List<PointLatLng> Puntos = new List<PointLatLng>();
             Node Nodesource = null;
-            Node NodeDestination = null; 
+            Node NodeDestination = null;
             foreach (var item in nodes)
             {
-                if(item.getName() == CbOrigin.Text)
+                if (item.getName() == CbOrigin.Text)
                 {
                     Nodesource = item;
                 }
@@ -187,20 +171,60 @@ namespace Forms_Map
                     NodeDestination = item;
                 }
             }
-            var mts = 0;
 
-            foreach (var node in graph.shortest_path(Nodesource, NodeDestination))
+            var showMst = true;
+
+            var listShort = manager.shortest_path(NodeDestination, Nodesource);
+            for (var i = 0; i < listShort.Count; i++)
             {
-                Puntos.Add(new PointLatLng(node.getLatInitial(), node.getLngInitial()));
-            }
-            Puntos.Add(new PointLatLng(Nodesource.getLatInitial(), Nodesource.getLngInitial()));
-            PuntosRuta = new GMapRoute(Puntos, "Ruta");
-            Ruta.Routes.Add(PuntosRuta);
+                GDirections direction;
+                PointLatLng final;
+             
+                var inicial = new PointLatLng(listShort[i].getLatInitial(), listShort[i].getLngInitial());
+                try
+                {
+                    final = new PointLatLng(listShort[i + 1].getLatInitial(), listShort[i + 1].getLngInitial());
+                }
+                catch (Exception ex)
+                {
+                    final = new PointLatLng(NodeDestination.getLatInitial(), NodeDestination.getLngInitial());
 
-            gMap.Overlays.Add(Ruta);
+                }
+
+                var rutasDireccion = GMapProviders.GoogleMap.GetDirections(out direction, inicial, final, false, false, false, false, false);
+                GMapRoute rutaObtenida = new GMapRoute(direction.Route, "Ruta ubicacion");
+                capaRutas.Routes.Add(rutaObtenida);
+                gMap.Overlays.Add(capaRutas);
+              
+
+            }
+
+            MessageBox.Show(string.Format("Distancia entre {0} => {1} es {2} KM", Nodesource.getName(), NodeDestination.getName(), getDistance(Nodesource, NodeDestination)));
             gMap.Zoom = gMap.Zoom + 1;
             gMap.Zoom = gMap.Zoom - 1;
         }
-        
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            trackZoom.Value = Convert.ToInt32(gMap.Zoom);
+        }
+
+        public double rad(double x)
+        {
+
+            return x * Math.PI / 180;
+        }
+        public double getDistance(Node NodeSource, Node NodeDestination)
+        {
+            var R = 6378137; // Earth’s mean radius in meter
+            var dLat = rad(NodeDestination.getLatInitial() - NodeSource.getLatInitial());
+            var dLong = rad(NodeDestination.getLngInitial() - NodeSource.getLngInitial());
+            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+            Math.Cos(rad(NodeSource.getLatInitial())) * Math.Cos(rad(NodeSource.getLatInitial())) *
+            Math.Sin(dLong / 2) * Math.Sin(dLong / 2);
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var d = R * c;
+            return Math.Round(d) / 1000;
+        }
     }
 }

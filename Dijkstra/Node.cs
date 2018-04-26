@@ -13,7 +13,6 @@ namespace Project_Dijkstra
         private string name;
         private double LatInitial;
         private double LngInitial;
-        private Dictionary<Node, int> adjacentNodes = new Dictionary<Node, int>();
 
         public Node(string name, double LatInitial, double LngInitial)
         {
